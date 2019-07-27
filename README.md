@@ -1,3 +1,4 @@
 # Google-Weather-Frog
-To run `app.js` and automatically commit all changed, non-corrupt files, use the following command:
-`node app.js && git add $(find . -size +0c) && git commit -m "Automatic image upload." && git push`
+Run `run.sh` on a cronjob to continuously grab the latest images, logs are available at `[date].log`.
+
+Example usage: `*/30 * * * * sh ~/Google-Weather-Frog/run.sh`.
