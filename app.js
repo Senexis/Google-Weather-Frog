@@ -222,6 +222,10 @@ function downloadFile(url, path) {
             var file = fs.createWriteStream(path);
 
             https.get(url, (response) => {
+                if (response.statusCode !== 200) {
+                    reject("Non-OK status code: " + response.statusCode);
+                }
+
                 response.pipe(file);
                 response.on('end', () => {
                     file.close(resolve);
