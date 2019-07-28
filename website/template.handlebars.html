@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google Weather Frog</title>
+
+    <style>
+        body {
+            margin: 0;
+            background-color: azure;
+            font-family: sans-serif;
+        }
+
+        .index {
+            background-color: #fff;
+            position: fixed;
+            box-shadow: 0 3px 47px rgba(0, 0, 0, 0.2);
+            height: 100vh;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            width: 500px;
+        }
+
+        .index ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .index li {
+            padding: 5px 10px;
+        }
+
+        .index a {
+            color: black;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
+
+        .index a:hover {
+            text-decoration: underline;
+        }
+
+        .frame {
+            height: 100vh;
+            padding-top: calc(50vh - 360px);
+            padding-left: calc(50vw - 750px);
+        }
+
+        .picture {
+            margin: 0 auto;
+            width: 720px;
+            height: 720px;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 3px 47px rgba(0, 0, 0, 0.2);
+        }
+
+        .layer {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: transform 0.7s;
+        }
+
+        .title {
+            margin-top: 40px;
+            text-align: center;
+            text-transform: capitalize;
+            color: #717171;
+        }
+
+        .layer:nth-child(1) {
+            z-index: 0;
+        }
+
+        .layer:nth-child(2) {
+            z-index: 2;
+        }
+
+        .layer:nth-child(3) {
+            z-index: 1;
+        }
+
+        .picture:hover .layer:nth-child(1) {
+            transform: translateZ(0px);
+        }
+
+        .picture:hover .layer:nth-child(2) {
+            transform: translateZ(60px);
+        }
+
+        .picture:hover .layer:nth-child(3) {
+            transform: translateZ(30px);
+        }
+    </style>
+
+    {{#each styles}}
+    <link rel="stylesheet" href="./css/{{this}}">
+    {{/each}}
+</head>
+
+<body>
+    <div class="index">
+        <ul>
+            {{#each images}}
+            <li><a href="#picture-{{@index}}">{{@key}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+
+    {{#each images}}
+    <div class="frame" id="picture-{{@index}}">
+        <div class="picture frog-type-{{ frogType this.[0] }}" data-tilt data-first-layer="{{ this.[0] }}">
+            {{#each this}}
+            <img src="./images/square/{{this}}" class="layer">
+            {{/each}}
+        </div>
+
+        <div class="title">
+            {{@key}}
+        </div>
+    </div>
+    {{/each}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js" integrity="sha256-IW3KrnX5+YCr5C4Q101lR2ah3T0+IR2IeASdf6ornX4=" crossorigin="anonymous"></script>
+</body>
+
+</html>
