@@ -190,7 +190,7 @@ function getImages(url, regex, getColors = false) {
                         if (getColors) {
                             var color = colorsRegex.exec(body);
 
-                            if (color !== undefined && color.length > 0) {
+                            if (color !== undefined) {
                                 object.css = color[0];
                                 object.gradient = color[1];
                             }
