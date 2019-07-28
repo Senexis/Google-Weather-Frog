@@ -313,6 +313,7 @@ async function doWideDownload() {
     });
 }
 
+console.log("=== [" + new Date().toString() + "] ===");
 console.log("Totals: " + squareUrls.length + " square URL(s) / " + wideUrls.length + " wide URL(s)");
 
 doSquareDownload().catch((error) => console.error(error));
