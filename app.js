@@ -168,6 +168,7 @@ function getImages(url, regex, getColors = false) {
             https.get(url, androidUserAgent, (response) => {
                 if (response.statusCode !== 200) {
                     reject("Non-OK status code: " + response.statusCode);
+                    return;
                 }
 
                 var body = "";
@@ -224,6 +225,7 @@ function downloadFile(url, path) {
             https.get(url, (response) => {
                 if (response.statusCode !== 200) {
                     reject("Non-OK status code: " + response.statusCode);
+                    return;
                 }
 
                 response.pipe(file);
@@ -250,7 +252,11 @@ function makeFile(data, path) {
             }
 
             fs.writeFile(path, data, (error) => {
-                if (error) reject(error);
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
                 resolve();
             });
         } catch (error) {
