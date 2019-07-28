@@ -305,7 +305,7 @@ async function doWideDownload() {
                 var css = "background: linear-gradient(" + image.gradient + "); background: -moz-linear-gradient(" + image.gradient + "); background: -ms-linear-gradient(" + image.gradient + "); background: -o-linear-gradient(" + image.gradient + "); background: -webkit-linear-gradient(" + image.gradient + ");";
 
                 await downloadFile(image.url.replace("_2x.png", "_4x.png"), "./images/wide/" + image.name + image.extension).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
-                await makeFile(css, "./images/css/" + image.name + ".css");
+                await makeFile(css, "./css/" + image.name + ".css");
             });
 
             console.log(currentItemString, performanceString, "Item complete.");
