@@ -162,6 +162,9 @@ const androidUserAgent = {
     }
 };
 
+var nextIterationDelay = 0;
+var iterationDelayAmount = 3000;
+
 function getImages(url, regex, getColors = false) {
     return new Promise((resolve, reject) => {
         try {
@@ -267,6 +270,8 @@ function makeFile(data, path) {
 
 async function doSquareDownload() {
     squareUrls.forEach(async (url, index, array) => {
+        nextIterationDelay = nextIterationDelay + iterationDelayAmount;
+
         setTimeout(async () => {
             const realIndex = (index + 1).toString();
             const padLength = array.length.toString().length;
@@ -289,12 +294,14 @@ async function doSquareDownload() {
             });
 
             console.log(currentItemString, performanceString, "Item complete.");
-        }, index * 3000);
+        }, nextIterationDelay);
     });
 }
 
 async function doWideDownload() {
     wideUrls.forEach(async (url, index, array) => {
+        nextIterationDelay = nextIterationDelay + iterationDelayAmount;
+
         setTimeout(async () => {
             const realIndex = (index + 1).toString();
             const padLength = array.length.toString().length;
@@ -321,7 +328,7 @@ async function doWideDownload() {
             });
 
             console.log(currentItemString, performanceString, "Item complete.");
-        }, ((index * 3000) + (squareUrls.length * 3000)));
+        }, nextIterationDelay);
     });
 }
 
