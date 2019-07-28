@@ -188,11 +188,10 @@ function getImages(url, regex, getColors = false) {
                         };
 
                         if (getColors) {
-                            var color;
-                            while (color = colorsRegex.exec(body)) {
-                                object.css = color[0];
-                                object.gradient = color[1];
-                            }
+                            var color = colorsRegex.exec(body);
+
+                            object.css = color[0];
+                            object.gradient = color[1];
                         }
 
                         images.push(object);
@@ -258,22 +257,27 @@ function makeFile(data, path) {
 async function doSquareDownload() {
     squareUrls.forEach(async (url, index, array) => {
         setTimeout(async () => {
-            var result = await getImages(url, squareRegex).catch((error) => console.log("[S: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed: " + JSON.stringify(error)));
+            const realIndex = (index + 1).toString();
+            const padLength = array.length.toString().length;
+            const currentItemString = "[S: " + realIndex.padStart(padLength, '0') + "/" + array.length + "]";
+            const performanceString = "[" + Math.round(performance.now()) + " ms]";
+
+            var result = await getImages(url, squareRegex).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
 
             if (result === undefined) {
                 return;
             }
 
             if (result.length < 1) {
-                console.log("[S: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed, empty result: " + url);
+                console.log(currentItemString, performanceString, "Item failed, empty result:", url);
                 return;
             }
 
             result.forEach(async (image) => {
-                await downloadFile(image.url, "./images/square/" + image.name + image.extension).catch((error) => console.log("[S: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed: " + JSON.stringify(error)));
+                await downloadFile(image.url, "./images/square/" + image.name + image.extension).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
             });
 
-            console.log("[S: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item complete.");
+            console.log(currentItemString, performanceString, "Item complete.");
         }, index * 3000);
     });
 }
@@ -281,25 +285,30 @@ async function doSquareDownload() {
 async function doWideDownload() {
     wideUrls.forEach(async (url, index, array) => {
         setTimeout(async () => {
-            var result = await getImages(url, wideRegex, true).catch((error) => console.log("[W: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed: " + JSON.stringify(error)));
+            const realIndex = (index + 1).toString();
+            const padLength = array.length.toString().length;
+            const currentItemString = "[W: " + realIndex.padStart(padLength, '0') + "/" + array.length + "]";
+            const performanceString = "[" + Math.round(performance.now()) + " ms]";
+
+            var result = await getImages(url, wideRegex, true).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
 
             if (result === undefined) {
                 return;
             }
 
             if (result.length < 1) {
-                console.log("[W: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed, empty result: " + url);
+                console.log(currentItemString, performanceString, "Item failed, empty result:", url);
                 return;
             }
 
             result.forEach(async (image) => {
                 var css = "background: linear-gradient(" + image.gradient + "); background: -moz-linear-gradient(" + image.gradient + "); background: -ms-linear-gradient(" + image.gradient + "); background: -o-linear-gradient(" + image.gradient + "); background: -webkit-linear-gradient(" + image.gradient + ");";
 
-                await downloadFile(image.url.replace("_2x.png", "_4x.png"), "./images/wide/" + image.name + image.extension).catch((error) => console.log("[W: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item failed: " + JSON.stringify(error)));
+                await downloadFile(image.url.replace("_2x.png", "_4x.png"), "./images/wide/" + image.name + image.extension).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
                 await makeFile(css, "./images/css/" + image.name + ".css");
             });
 
-            console.log("[W: " + (index + 1) + "/" + array.length + "] [" + Math.round(performance.now()) + " ms] Item complete.");
+            console.log(currentItemString, performanceString, "Item complete.");
         }, ((index * 3000) + (squareUrls.length * 3000)));
     });
 }
