@@ -227,6 +227,10 @@ function downloadFile(url, path) {
 
             https.get(url, (response) => {
                 if (response.statusCode !== 200) {
+                    file.end(() => {
+                        fs.unlinkSync(path);
+                    });
+
                     reject("Non-OK status code: " + response.statusCode);
                     return;
                 }
@@ -332,8 +336,37 @@ async function doWideDownload() {
     });
 }
 
+async function doSyncWides() {
+    var squareImages = fs.readdirSync('./images/square');
+    squareImages.shift();
+
+    squareImages.forEach((file, index, array) => {
+        array[index] = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('.png', '');
+    });
+
+    uniqueSquareImages = [...new Set(squareImages)];
+
+    uniqueSquareImages.forEach(async (file, index, array) => {
+        nextIterationDelay = nextIterationDelay + (iterationDelayAmount / 4);
+
+        setTimeout(async () => {
+            const realIndex = (index + 1).toString();
+            const padLength = array.length.toString().length;
+            const currentItemString = "[X: " + realIndex.padStart(padLength, '0') + "/" + array.length + "]";
+            const performanceString = "[" + Math.round(performance.now()) + " ms]";
+
+            var url = "https://www.gstatic.com/weather/froggie/l/" + file + "_4x.png";
+
+            await downloadFile(url, "./images/wide/" + file + ".png").catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
+
+            console.log(currentItemString, performanceString, "Item complete.");
+        }, nextIterationDelay);
+    });
+}
+
 console.log("=== [" + new Date().toString() + "] ===");
 console.log("Totals: " + squareUrls.length + " square URL(s) / " + wideUrls.length + " wide URL(s)");
 
 doSquareDownload().catch((error) => console.error(error));
 doWideDownload().catch((error) => console.error(error));
+doSyncWides().catch((error) => console.error(error));
