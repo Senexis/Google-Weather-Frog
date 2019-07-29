@@ -14,10 +14,15 @@ fs.readdir('../images/square/')
         files.forEach(file => {
             if (file.startsWith('.gitkeep')) return;
 
-            var name = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('.png', '').replace(/-/g, ' ');
+            var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '');
+            var name = base.replace('.png', '').replace(/-/g, ' ');
 
             if (!images[name]) {
                 images[name] = [];
+            }
+
+            if (!images[name].includes(base)) {
+                images[name].push(base);
             }
 
             images[name].push(file);

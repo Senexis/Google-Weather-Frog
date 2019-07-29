@@ -14,40 +14,23 @@
             font-family: sans-serif;
         }
 
-        .index {
-            background-color: #fff;
+        nav {
+            z-index: 10;
+            height: 5vh;
+            line-height: 5vh;
+            -webkit-backdrop-filter: saturate(120%) blur(10px);
+            backdrop-filter: saturate(120%) blur(10px);
+            background-color: rgba(255, 255, 255, 0.4);
+            border-bottom: solid 1px #0003;
             position: fixed;
-            box-shadow: 0 3px 47px rgba(0, 0, 0, 0.2);
-            height: 100vh;
             top: 0;
             left: 0;
-            overflow-y: auto;
-            width: 500px;
-        }
-
-        .index ul {
-            list-style: none;
-            padding-left: 10px;
-        }
-
-        .index li {
-            padding: 5px 10px;
-        }
-
-        .index a {
-            color: black;
-            text-decoration: none;
-            text-transform: capitalize;
-        }
-
-        .index a:hover {
-            text-decoration: underline;
+            right: 0;
+            padding: 0 5vw;
         }
 
         .frame {
-            height: 100vh;
-            padding-top: calc(50vh - 360px);
-            padding-left: calc(50vw - 750px);
+            padding: calc(50vh - 360px) 0;
         }
 
         .picture {
@@ -56,7 +39,6 @@
             height: 720px;
             position: relative;
             transform-style: preserve-3d;
-            box-shadow: 0 3px 47px rgba(0, 0, 0, 0.2);
         }
 
         .layer {
@@ -66,14 +48,8 @@
             transition: transform 0.7s;
         }
 
-        .title {
-            margin-top: 40px;
-            text-align: center;
-            text-transform: capitalize;
-            color: #717171;
-        }
-
         .layer:nth-child(1) {
+            box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.2);
             z-index: 0;
         }
 
@@ -104,29 +80,56 @@
 </head>
 
 <body>
-    <div class="index">
-        <ul>
+    <nav>
+        <select name="navigator" id="navigator">
             {{#each images}}
-            <li><a href="#picture-{{@index}}">{{@key}}</a></li>
+            <option value="#picture-{{@index}}">{{@key}}</option>
             {{/each}}
-        </ul>
-    </div>
+        </select>
+        <button id="frame-toggler">Hide squares</button>
+    </nav>
 
     {{#each images}}
-    <div class="frame" id="picture-{{@index}}">
-        <div class="picture frog-type-{{ frogType this.[0] }}" data-tilt data-first-layer="{{ this.[0] }}">
-            {{#each this}}
-            <img src="./images/square/{{this}}" class="layer">
-            {{/each}}
-        </div>
-
-        <div class="title">
-            {{@key}}
+    <div class="frog-type-{{ frogType this.[0] }}" title="{{@key}}">
+        <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x;">
+            <div class="frame" id="picture-{{@index}}">
+                <div class="picture frog-type-{{ frogType this.[0] }}" data-tilt>
+                    {{#each this}}
+                    {{#if @first}}
+                    {{else}}
+                    <img src="./images/square/{{this}}" class="layer">
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
         </div>
     </div>
     {{/each}}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js" integrity="sha256-IW3KrnX5+YCr5C4Q101lR2ah3T0+IR2IeASdf6ornX4=" crossorigin="anonymous"></script>
+    <script>
+        $.fn.extend({
+            scrollToMe: function () {
+                var x = $(this).offset().top;
+                $('html,body').animate({ scrollTop: x }, 750);
+            }
+        });
+
+        var framesVisible = true;
+        $('#frame-toggler').click(function () {
+            framesVisible = !framesVisible;
+            if (framesVisible) {
+                $('.picture').css('visibility', 'visible');
+            } else {
+                $('.picture').css('visibility', 'hidden');
+            }
+        });
+
+        $('#navigator').change(function (event) {
+            $(this.value).scrollToMe();
+        });
+    </script>
 </body>
 
 </html>
