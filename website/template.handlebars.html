@@ -29,6 +29,16 @@
             padding: 0 5vw;
         }
 
+        h3 {
+            position: absolute;
+            top: calc(50vh - 420px);
+            left: 0;
+            right: 0;
+            text-align: center;
+            text-transform: capitalize;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
         .frame {
             padding: calc(50vh - 360px) 0;
         }
@@ -86,12 +96,13 @@
             <option value="#picture-{{@index}}">{{@key}}</option>
             {{/each}}
         </select>
-        <button id="frame-toggler">Hide squares</button>
+        <button id="frame-toggler">Toggle squares</button>
+        <button id="title-toggler">Toggle titles</button>
     </nav>
 
     {{#each images}}
-    <div class="frog-type-{{ frogType this.[0] }}" title="{{@key}}">
-        <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x;">
+    <div class="frog-type-{{ frogType this.[0] }}" style="position: relative">
+        <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x">
             <div class="frame" id="picture-{{@index}}">
                 <div class="picture frog-type-{{ frogType this.[0] }}" data-tilt>
                     {{#each this}}
@@ -102,6 +113,7 @@
                     {{/each}}
                 </div>
             </div>
+            <h3>{{@key}}</h3>
         </div>
     </div>
     {{/each}}
@@ -123,6 +135,16 @@
                 $('.picture').css('visibility', 'visible');
             } else {
                 $('.picture').css('visibility', 'hidden');
+            }
+        });
+        
+        var titlesVisible = true;
+        $('#title-toggler').click(function () {
+            titlesVisible = !titlesVisible;
+            if (titlesVisible) {
+                $('h3').css('visibility', 'visible');
+            } else {
+                $('h3').css('visibility', 'hidden');
             }
         });
 
