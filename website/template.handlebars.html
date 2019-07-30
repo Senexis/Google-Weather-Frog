@@ -52,15 +52,15 @@
             transform-style: preserve-3d;
         }
 
-        .picture:hover .layer:nth-child(1) {
+        #images.active .picture:hover .layer:nth-child(1) {
             transform: translateZ(0px);
         }
 
-        .picture:hover .layer:nth-child(2) {
+        #images.active .picture:hover .layer:nth-child(2) {
             transform: translateZ(60px);
         }
 
-        .picture:hover .layer:nth-child(3) {
+        #images.active .picture:hover .layer:nth-child(3) {
             transform: translateZ(30px);
         }
 
@@ -98,26 +98,29 @@
             {{/each}}
         </select>
         <button id="frame-toggler">Toggle squares</button>
+        <button id="frame-effect-toggler">Toggle tilt effect</button>
         <button id="title-toggler">Toggle titles</button>
     </nav>
 
-    {{#each images}}
-    <div class="frog-type-{{ frogType this.[0] }}" style="position: relative">
-        <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x">
-            <div class="frame" id="picture-{{@index}}">
-                <div class="picture frog-type-{{ frogType this.[0] }}" data-tilt>
-                    {{#each this}}
-                    {{#if @first}}
-                    {{else}}
-                    <img src="./images/square/{{this}}" class="layer">
-                    {{/if}}
-                    {{/each}}
+    <div id="images" class="active">
+        {{#each images}}
+        <div class="frog-type-{{ frogType this.[0] }}" style="position: relative">
+            <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x">
+                <div class="frame" id="picture-{{@index}}">
+                    <div class="picture frog-type-{{ frogType this.[0] }}">
+                        {{#each this}}
+                        {{#if @first}}
+                        {{else}}
+                        <img src="./images/square/{{this}}" class="layer">
+                        {{/if}}
+                        {{/each}}
+                    </div>
                 </div>
+                <h3>{{@key}}</h3>
             </div>
-            <h3>{{@key}}</h3>
         </div>
+        {{/each}}
     </div>
-    {{/each}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js" integrity="sha256-IW3KrnX5+YCr5C4Q101lR2ah3T0+IR2IeASdf6ornX4=" crossorigin="anonymous"></script>
@@ -129,13 +132,31 @@
             }
         });
 
+        var frames = $(".picture");
+        frames.each(function () { VanillaTilt.init(this) })
+
         var framesVisible = true;
         $('#frame-toggler').click(function () {
             framesVisible = !framesVisible;
             if (framesVisible) {
                 $('.picture').css('visibility', 'visible');
+                $('#frame-effect-toggler').removeAttr('disabled');
             } else {
                 $('.picture').css('visibility', 'hidden');
+                $('#frame-effect-toggler').attr('disabled', 'disabled');
+            }
+        });
+
+        var framesEffect = true;
+        $('#frame-effect-toggler').click(function () {
+            framesEffect = !framesEffect;
+
+            if (framesEffect) {
+                frames.each(function () { VanillaTilt.init(this) })
+                $('#images').addClass('active');
+            } else {
+                frames.each(function () { this.vanillaTilt.destroy() })
+                $('#images').removeClass('active');
             }
         });
 
