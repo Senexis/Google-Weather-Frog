@@ -328,7 +328,7 @@ async function doWideDownload() {
                 var frogType = image.name.substring(0, 2);
                 var css = ".frog-type-" + frogType + " { background: linear-gradient(" + image.gradient + "); background: -moz-linear-gradient(" + image.gradient + "); background: -ms-linear-gradient(" + image.gradient + "); background: -o-linear-gradient(" + image.gradient + "); background: -webkit-linear-gradient(" + image.gradient + "); }";
                 await makeFile(css, "./css/frog-type-" + frogType + ".css");
-                
+
                 var fixedName = image.name.replace('-hill-', '-hills-');
                 await downloadFile(image.url.replace("_2x.png", "_4x.png"), "./images/wide/" + fixedName + image.extension).catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
             });
