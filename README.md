@@ -1,4 +1,5 @@
-# Google-Weather-Frog
+# Google Weather Frog
+An automatic scrubber of Google Weather's frog images for personal use.
 
 ## Scrubbing
 Run `scrub.sh` on a cronjob to grab the latest images, logs are available at `[date].log`
