@@ -125,13 +125,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js" integrity="sha256-IW3KrnX5+YCr5C4Q101lR2ah3T0+IR2IeASdf6ornX4=" crossorigin="anonymous"></script>
     <script>
-        $.fn.extend({
-            scrollToMe: function () {
-                var x = $(this).offset().top;
-                $('html,body').animate({ scrollTop: x }, 750);
-            }
-        });
-
         var frames = $(".picture");
         frames.each(function () { VanillaTilt.init(this) })
 
@@ -171,8 +164,16 @@
         });
 
         $('#navigator').change(function (event) {
-            $(this.value).scrollToMe();
+            window.location.hash = this.value;
+            $('#navigator').focus();
         });
+
+        window.onhashchange = function () {
+            $('#navigator').val(window.location.hash);
+            $('#navigator').focus();
+        };
+
+        $('#navigator').focus();
     </script>
 </body>
 

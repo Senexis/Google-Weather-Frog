@@ -14,7 +14,7 @@ fs.readdir('../images/square/')
         files.forEach(file => {
             if (file.startsWith('.gitkeep')) return;
 
-            var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '');
+            var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)');
             var name = base.replace('.png', '').replace(/-/g, ' ');
 
             if (!images[name]) {
@@ -29,13 +29,29 @@ fs.readdir('../images/square/')
         });
     })
     .then(() => {
+        fs.readdir('../images/wide/')
+            .then(files => {
+                files.forEach(file => {
+                    if (file.startsWith('.gitkeep')) return;
+
+                    var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)');
+                    var name = base.replace('.png', '').replace(/-/g, ' ');
+
+                    if (images[name]) return;
+
+                    images[name + ' (wide only)'] = [];
+                    images[name + ' (wide only)'].push(file);
+                });
+            });
+    })
+    .then(() => {
         fs.readdir('../css/')
             .then(files => {
                 files.forEach(file => {
                     if (file.startsWith('.gitkeep')) return;
                     styles.push(file);
                 });
-            })
+            });
     })
     .then(() => {
         return fs.readFile('template.handlebars.html', 'utf-8')
