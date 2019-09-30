@@ -19,4 +19,4 @@ Example usage: `0 */12 * * * cd /home/[user]/Google-Weather-Frog/ && bash websit
 ## Clean-up
 To clean up the massive amounts of `.log` files produced by the bash scripts, you can run a cronjob.
 
-Example usage: `0 0 * * SUN cd /home/ubuntu/Google-Weather-Frog/ && rm *.log`
+Example usage: `0 0 * * SUN cd /home/[user]/Google-Weather-Frog/ && rm *.log`
