@@ -26,6 +26,7 @@ const weatherTypes = [
     '22-iso-thunderstorms',
     '22-iso-thunderstorm',
     '24-strong-thunderstorms',
+    '25-breezy-windy',
     '26-haze-fog-dust-smoke'
 ]
 
