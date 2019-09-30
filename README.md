@@ -11,6 +11,11 @@ Run `sync.sh` on a cronjob to get the corresponding missing wides and/or squares
 
 Example usage: `15 */12 * * * cd /home/[user]/Google-Weather-Frog/ && bash sync.sh`
 
+## Weather
+Run `weather.sh` on a cronjob to update pre-defined location weather images, logs are available at `weather-[date]_[time].log`
+
+Example usage: `*/30 * * * * cd /home/[user]/Google-Weather-Frog/ && bash weather.sh`
+
 ## Website
 Run `website.sh` on a cronjob to update the website's `index.html`, logs are available at `website-[date]_[time].log`
 
