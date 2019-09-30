@@ -15,3 +15,8 @@ Example usage: `15 */12 * * * cd /home/[user]/Google-Weather-Frog/ && bash sync.
 Run `website.sh` on a cronjob to update the website's `index.html`, logs are available at `website-[date]_[time].log`
 
 Example usage: `0 */12 * * * cd /home/[user]/Google-Weather-Frog/ && bash website.sh`
+
+## Clean-up
+To clean up the massive amounts of `.log` files produced by the bash scripts, you can run a cronjob.
+
+Example usage: `0 0 * * SUN cd /home/ubuntu/Google-Weather-Frog/ && rm *.log`
