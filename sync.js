@@ -3,7 +3,7 @@ const fs = require("fs");
 const { performance } = require('perf_hooks');
 
 var nextIterationDelay = 0;
-var iterationDelayAmount = 3000;
+var iterationDelayAmount = 500;
 
 const weatherTypes = [
     '01-sunny',
@@ -76,7 +76,7 @@ async function doSyncWides() {
     var uniqueSquareImages = [...new Set(squareImages)];
 
     uniqueSquareImages.forEach(async (file, index, array) => {
-        nextIterationDelay = nextIterationDelay + (iterationDelayAmount / 4);
+        nextIterationDelay = nextIterationDelay + iterationDelayAmount;
 
         setTimeout(async () => {
             const realIndex = (index + 1).toString();
@@ -105,7 +105,7 @@ async function doSyncSquares() {
     var uniqueWideImages = [...new Set(wideImages)];
 
     uniqueWideImages.forEach(async (file, index, array) => {
-        nextIterationDelay = nextIterationDelay + (iterationDelayAmount / 4);
+        nextIterationDelay = nextIterationDelay + iterationDelayAmount;
 
         setTimeout(async () => {
             const realIndex = (index + 1).toString();
@@ -151,7 +151,7 @@ async function doSyncTypes() {
     });
 
     compiledList.forEach(async (file, index, array) => {
-        nextIterationDelay = nextIterationDelay + (iterationDelayAmount / 4);
+        nextIterationDelay = nextIterationDelay + iterationDelayAmount;
 
         setTimeout(async () => {
             const realIndex = (index + 1).toString();
