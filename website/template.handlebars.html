@@ -114,6 +114,7 @@
         <div class="frog-type-{{ frogType this.[0] }}" style="position: relative">
             <div style="background-image: url('./images/wide/{{ this.[0] }}'); background-position: bottom; background-repeat: repeat-x">
                 <div class="frame" id="picture-{{@index}}">
+                    {{#if this.[1]}}
                     <div class="picture frog-type-{{ frogType this.[0] }}">
                         {{#each this}}
                         {{#if @first}}
@@ -122,6 +123,7 @@
                         {{/if}}
                         {{/each}}
                     </div>
+                    {{/if}}
                 </div>
                 <h3>{{@key}}</h3>
             </div>
