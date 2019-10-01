@@ -4,7 +4,6 @@ const { performance } = require('perf_hooks');
 
 const wideRegex = /(?<url>https:\/\/www\.gstatic\.com\/weather\/froggie\/l\/)(?<name>.*?)_2x(?<ext>\.png)/g;
 const locationUrls = [
-    ["https://www.google.com/search?q=weather+werkendam", "werkendam"],
     ["https://www.google.com/search?q=weather+nieuwendijk", "nieuwendijk"],
 ]
 
