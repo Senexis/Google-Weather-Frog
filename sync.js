@@ -175,4 +175,4 @@ doSyncWides().catch((error) => console.error(error));
 doSyncSquares().catch((error) => console.error(error));
 
 // Intensive (easily more than 1,000 images), only do once in a while.
-doSyncTypes().catch((error) => console.error(error));
+// doSyncTypes().catch((error) => console.error(error));
