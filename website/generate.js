@@ -14,7 +14,7 @@ fs.readdir('../images/square/')
         files.forEach(file => {
             if (file.startsWith('.gitkeep')) return;
 
-            var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)');
+            var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)').replace('_f', ' (frost)');
             var name = base.replace('.png', '').replace(/-/g, ' ');
 
             if (!images[name]) {
@@ -34,7 +34,7 @@ fs.readdir('../images/square/')
                 files.forEach(file => {
                     if (file.startsWith('.gitkeep')) return;
 
-                    var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)');
+                    var base = file.replace('_bg', '').replace('_mg', '').replace('_fg', '').replace('_c', ' (cold)').replace('_f', ' (frost)');
                     var name = base.replace('.png', '').replace(/-/g, ' ');
 
                     if (images[name]) return;
