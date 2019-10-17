@@ -88,6 +88,7 @@ async function doSyncWides() {
 
             await downloadFile(url + "_4x.png", "./images/wide/" + file + ".png").catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
             await downloadFile(url + "_c_4x.png", "./images/wide/" + file + "_c.png").catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
+            await downloadFile(url + "_f_4x.png", "./images/wide/" + file + "_f.png").catch((error) => console.log(currentItemString, performanceString, "Item failed:", JSON.stringify(error)));
 
             console.log(currentItemString, performanceString, "Item complete.");
         }, nextIterationDelay);
