@@ -20,6 +20,7 @@ const weatherTypes = [
     '12-heavy-rain',
     '13-flurries',
     '15-snow-showers-snow',
+    '16-blowing-snow',
     '17-heavy-snow-blizzard',
     '19-mixed-rain-hail-rain-sleet',
     '20-rain-snow-wintry-mix',
