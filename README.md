@@ -1,20 +1,14 @@
 # Google Weather Frog
 An automatic scrubber of Google Weather's frog images for personal use.
 
-## Crossing
-Run `cross.sh` on a cronjob to cross-sync all image types and names, logs are available at `cross-[date]_[time].log`
-
-## Scrubbing
-Run `scrub.sh` on a cronjob to grab the latest images, logs are available at `scrub-[date]_[time].log`
-
-## Syncing
-Run `sync.sh` on a cronjob to get the corresponding missing wides and/or squares, logs are available at `sync-[date]_[time].log`
-
-## Weather
-Run `weather.sh` on a cronjob to update pre-defined location weather images, logs are available at `weather-[date]_[time].log`
-
-## Website
-Run `website.sh` on a cronjob to update the website's `index.html`, logs are available at `website-[date]_[time].log`
+## Commands
+| Command         | Description                                            | Logged to                   |
+| :-------------- | :----------------------------------------------------- | :-------------------------- |
+| `cross.sh`      | Cross-sync all image types and names.                  | `cross-[date]_[time].log`   |
+| `scrub.sh`      | Grab the latest images.                                | `scrub-[date]_[time].log`   |
+| `sync.sh`       | Get the corresponding missing wides and/or squares.    | `sync-[date]_[time].log`    |
+| `weather.sh`    | Update pre-defined location weather images.            | `weather-[date]_[time].log` |
+| `website.sh`    | Update the website's `index.html`.                     | `website-[date]_[time].log` |
 
 ## Clean-up
 To clean up the massive amounts of `.log` files produced by the bash scripts, you can run a cronjob.
