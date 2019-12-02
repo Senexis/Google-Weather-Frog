@@ -1,6 +1,11 @@
 # Google Weather Frog
 An automatic scrubber of Google Weather's frog images for personal use.
 
+## Crossing
+Run `cross.sh` on a cronjob to cross-sync all image types and names, logs are available at `cross-[date]_[time].log`
+
+Example usage: `0 0 * * SUN cd /home/[user]/Google-Weather-Frog/ && bash cross.sh`
+
 ## Scrubbing
 Run `scrub.sh` on a cronjob to grab the latest images, logs are available at `scrub-[date]_[time].log`
 
